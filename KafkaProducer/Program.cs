@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KafkaProducer
+namespace KafkaProducer_1
 {
     class Program
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KafkaProducer")]
+[assembly: AssemblyTitle("KafkaProducer_1")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sainsbury's Supermarkets Limited")]
-[assembly: AssemblyProduct("KafkaProducer")]
+[assembly: AssemblyProduct("KafkaProducer_1")]
 [assembly: AssemblyCopyright("Copyright © Sainsbury's Supermarkets Limited 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("082f670a-20d2-4383-a0fc-a43e4c4b91cd")]
+[assembly: Guid("c9a1e3c9-4a4b-490b-8561-663d8e501e68")]
 
 // Version information for an assembly consists of the following four values:
 //
