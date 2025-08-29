@@ -14,14 +14,14 @@ namespace KafkaProducer
             Console.WriteLine("2. Advanced Producer");
             var choice = Console.ReadLine();
 
-            if (choice == "2")
-            {
-                Console.WriteLine("Advanced producer is not implemented yet.");
-                // TODO: Call AdvancedProducer.RunAsync() when implemented
-            }
-            else if (choice == "1")
+            if (choice == "1")
             {
                 await SimpleProducer.RunAsync();
+            }
+            else if (choice == "2")
+            {
+                var schemaBasedProducer = SchemaBasedProducer.CreateDefault(); // create producer
+                await schemaBasedProducer.ProduceOrderEvents(); // start producing
             }
             else
             {

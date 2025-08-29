@@ -1,5 +1,6 @@
 ﻿using Confluent.Kafka;
 using KafkaProducer.Interfaces;
+using KafkaProducer.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -8,16 +9,19 @@ namespace KafkaProducer.Producers
 {
     public class SchemaBasedProducer
     {
-        private readonly IProducer<string, string> _producer;
         private readonly Random _random = new Random();
+        private readonly IProducer<string, string> _producer;
         private readonly IRandomGenerator _randomGenerator;
 
-        public SchemaBasedProducer(IRandomGenerator randomGenerator)
+        // Constructor for dependency injection
+        public SchemaBasedProducer(IProducer<string, string> producer, IRandomGenerator randomGenerator)
         {
-            _randomGenerator = randomGenerator;
+            _producer = producer ?? throw new ArgumentNullException(nameof(producer));
+            _randomGenerator = randomGenerator ?? throw new ArgumentNullException(nameof(randomGenerator));
         }
 
-        public SchemaBasedProducer()
+        // Optional: Provide a static factory for legacy/manual instantiation
+        public static SchemaBasedProducer CreateDefault()
         {
             var config = new ProducerConfig
             {
@@ -28,7 +32,9 @@ namespace KafkaProducer.Producers
                 EnableIdempotence = true
             };
 
-            _producer = new ProducerBuilder<string, string>(config).Build();
+            var producer = new ProducerBuilder<string, string>(config).Build();
+            var randomGenerator = new RandomGenerator();
+            return new SchemaBasedProducer(producer, randomGenerator);
         }
 
         public async Task ProduceOrderEvents()
