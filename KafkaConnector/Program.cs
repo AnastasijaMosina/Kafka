@@ -45,7 +45,7 @@ namespace KafkaConnector
 
             using (var consumer = new Confluent.Kafka.ConsumerBuilder<Ignore, string>(config).Build())
             {
-                consumer.Subscribe("quickstart-events");
+                consumer.Subscribe("simple-events");
                 Console.WriteLine("Running basic consumer...");
                 Console.WriteLine("Listening to 'quickstart-events' topic on localhost:9092");
                 Console.WriteLine("Press Ctrl+C to exit");
@@ -87,7 +87,7 @@ namespace KafkaConnector
         static async Task RunAdvancedConsumer()
         {
             var consumer = new AdvancedKafkaConsumer();
-            await consumer.StartConsuming("quickstart-events");
+            await consumer.StartConsuming("simple-events");
         }
 
         static async Task RunOrderProcessor()
