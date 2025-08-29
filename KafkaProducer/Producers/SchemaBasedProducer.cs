@@ -1,40 +1,29 @@
 ﻿using Confluent.Kafka;
 using KafkaProducer.Interfaces;
-using KafkaProducer.Utils;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System;
-using System.Threading.Tasks;
 
 namespace KafkaProducer.Producers
 {
     public class SchemaBasedProducer
     {
-        private readonly Random _random = new Random();
         private readonly IProducer<string, string> _producer;
         private readonly IRandomGenerator _randomGenerator;
 
         // Constructor for dependency injection
-        public SchemaBasedProducer(IProducer<string, string> producer, IRandomGenerator randomGenerator)
+        public SchemaBasedProducer(IRandomGenerator randomGenerator, IConfiguration config)
         {
-            _producer = producer ?? throw new ArgumentNullException(nameof(producer));
-            _randomGenerator = randomGenerator ?? throw new ArgumentNullException(nameof(randomGenerator));
-        }
-
-        // Optional: Provide a static factory for legacy/manual instantiation
-        public static SchemaBasedProducer CreateDefault()
-        {
-            var config = new ProducerConfig
+            _randomGenerator = randomGenerator;
+            var producerConfig = new ProducerConfig
             {
-                BootstrapServers = "localhost:9092",
+                BootstrapServers = config["Kafka:ServerUri"],
+                // ... other config
                 MessageTimeoutMs = 30000,
                 Acks = Acks.All,
                 MessageSendMaxRetries = 3,
                 EnableIdempotence = true
             };
-
-            var producer = new ProducerBuilder<string, string>(config).Build();
-            var randomGenerator = new RandomGenerator();
-            return new SchemaBasedProducer(producer, randomGenerator);
+            _producer = new ProducerBuilder<string, string>(producerConfig).Build();
         }
 
         public async Task ProduceOrderEvents()

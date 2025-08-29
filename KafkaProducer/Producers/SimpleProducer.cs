@@ -1,19 +1,18 @@
 using Confluent.Kafka;
-using System;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace KafkaProducer.Producers
 {
     public static class SimpleProducer
     {
-        public static async Task RunAsync()
+        public static async Task RunAsync(IConfiguration config)
         {
-            var config = new ProducerConfig
+            var producerConfig = new ProducerConfig
             {
-                BootstrapServers = "localhost:9092"
+                BootstrapServers = config["Kafka:ServerUri"]
             };
 
-            using (var producer = new ProducerBuilder<Null, string>(config).Build())
+            using (var producer = new ProducerBuilder<Null, string>(producerConfig).Build())
             {
                 Console.WriteLine("Kafka Producer started.");
                 Console.WriteLine("Type a message and press Enter to send to 'simple-events' topic.");
