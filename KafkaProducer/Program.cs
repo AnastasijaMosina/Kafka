@@ -10,11 +10,16 @@ var builder = Host.CreateApplicationBuilder(args);
 // Register configuration
 builder.Configuration.AddJsonFile("appsettings.json", optional: true);
 
+// Validate configuration early
+var config = builder.Configuration;
+if (string.IsNullOrWhiteSpace(config["Kafka:ServerUri"]))
+    throw new InvalidOperationException("Kafka:ServerUri is not configured.");
+
 // Register services
 builder.Services.AddSingleton<IRandomGenerator, RandomGenerator>();
 builder.Services.AddSingleton<SchemaBasedProducer>();
-//SimpleProducer is a static class and cannot be registered as a service
-// builder.Services.AddSingleton<SimpleProducer>();
+// builder.Services.AddSingleton<SimpleProducer>(); //SimpleProducer is a static class and cannot be registered as a service
+
 
 var host = builder.Build();
 
