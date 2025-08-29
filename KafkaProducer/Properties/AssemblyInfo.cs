@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KafkaProducer_1")]
+[assembly: AssemblyTitle("KafkaProducer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sainsbury's Supermarkets Limited")]
-[assembly: AssemblyProduct("KafkaProducer_1")]
+[assembly: AssemblyProduct("KafkaProducer")]
 [assembly: AssemblyCopyright("Copyright © Sainsbury's Supermarkets Limited 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
